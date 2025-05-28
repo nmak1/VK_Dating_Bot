@@ -26,7 +26,8 @@ class VKDatingBot:
         self.keyboard.add_button('В избранное', color=VkKeyboardColor.SECONDARY)
         self.keyboard.add_button('Избранные', color=VkKeyboardColor.SECONDARY)
 
-    def load_favorites(self):
+    @staticmethod
+    def load_favorites():
         """Загружает избранное из файла"""
         try:
             with open('favorites.json', 'r') as f:
