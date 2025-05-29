@@ -1,7 +1,9 @@
+from datetime import datetime
 from unittest.mock import MagicMock
 
 
 class TestVKAdvancedDatingBot:
+
     def test_init(self, mock_bot):
         assert mock_bot is not None
         assert mock_bot.vk_group is not None
