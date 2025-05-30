@@ -1,4 +1,4 @@
-.. VK_Dating_Bot documentation master file, created by└── tests/                  # Тесты
+.. VK_Dating_Bot documentation master file, created by
    sphinx-quickstart on Thu May 29 23:56:26 2025.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
