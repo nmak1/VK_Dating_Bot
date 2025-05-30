@@ -21,6 +21,7 @@ VK_Dating_Bot documentation
         ├── conftest.py
         ├── test_bot.py
         └── test_db.py
+    └── docs/                   # Документация
 
 Конфигурация запуска
 --------------------
