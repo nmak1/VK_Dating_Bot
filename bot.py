@@ -4,7 +4,12 @@ from core.db.connector import Database
 def main():
     Database.initialize()
     bot = DatingBot()
-    bot.run()
+    try:
+        bot.run()
+    except KeyboardInterrupt:
+        print("Bot stopped")
+    finally:
+        Database.close_all()
 
 if __name__ == '__main__':
     main()
