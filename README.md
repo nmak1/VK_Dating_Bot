@@ -21,8 +21,8 @@
 ```bash
 
 
-git clone https://github.com/yourusername/vk-dating-bot.git
-cd vk-dating-bot
+git clone https://github.com/nmak1/VK_Dating_Bot
+cd VK_Dating_Bot
 pip install -r requirements.txt
 🔧 Настройка
 Создайте .env файл:
