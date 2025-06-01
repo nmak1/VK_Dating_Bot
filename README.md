@@ -59,3 +59,5 @@ vk-dating-bot/
 📝 Лицензия
 MIT License
 
+Python
+VK API
