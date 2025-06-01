@@ -22,24 +22,27 @@
 git clone https://github.com/nmak1/VK_Dating_Bot
 cd VK_Dating_Bot
 pip install -r requirements.txt
+
 🔧 Настройка
+
 Создайте .env файл:
 
-ini
 POSTGRES_DB=dating_bot
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 VK_GROUP_TOKEN=your_token
-VK_GROUP_ID=your_group_id
+VK_GROUP_ID=your_group_id   
+
 🚀 Запуск
-bash
+
 python bot.py
 🧪 Тестирование
-bash
+
 pytest tests/ -v
 pytest --cov=bot --cov-report=term-missing
+
 📊 Структура
 vk-dating-bot/
 ├── bot.py
