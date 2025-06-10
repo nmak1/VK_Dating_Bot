@@ -1,4 +1,4 @@
-# VK Dating Bot 🤖❤️
+# VK Dating Bot 🤖❤️     
 
 Бот для поиска партнеров ВКонтакте на основе общих интересов, возраста и местоположения.
 
@@ -19,6 +19,7 @@
 
 ## ⚙️ Установка
 ```bash
+
 git clone https://github.com/nmak1/VK_Dating_Bot
 cd VK_Dating_Bot
 pip install -r requirements.txt 
@@ -29,11 +30,12 @@ pip install -r requirements.txt
 
 POSTGRES_DB=dating_bot
 POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
+POSTGRES_PASSWORD=your_password
 POSTGRES_HOST=localhost
 POSTGRES_PORT=5432
 VK_GROUP_TOKEN=your_token
-VK_GROUP_ID=your_group_id   
+VK_GROUP_ID=12345678
+VK_USER_TOKEN=your_user_token  
 
 🚀 Запуск
 
@@ -44,17 +46,45 @@ pytest tests/ -v
 pytest --cov=bot --cov-report=term-missing
 
 📊 Структура
-vk-dating-bot/
+vk_dating_bot/
 ├── bot.py
+├── config/
+│   ├── __init__.py
+│   ├── settings.py
+│   └── constants.py
+├── core/
+│   ├── __init__.py
+│   ├── bot_core.py
+│   ├── matching.py
+│   ├── vk_api/
+│   │   ├── __init__.py
+│   │   ├── client.py
+│   │   └── models.py
+│   └── db/
+│       ├── __init__.py
+│       ├── connector.py
+│       ├── repositories.py
+│       └── models.py
+├── handlers/
+│   ├── __init__.py
+│   ├── message.py
+│   └── callback.py
+├── services/
+│   ├── __init__.py
+│   ├── analyzer.py
+│   └── formatter.py
 ├── tests/
 │   ├── __init__.py
 │   ├── conftest.py
-│   ├── test_bot.py
-│   └── test_db.py
-├── docs/
-├── .env
+│   ├── unit/
+│   └── integration/
 ├── requirements.txt
 └── README.md
+├── docs/
+
+
 📝 Лицензия
 MIT License
 
+Python
+VK API

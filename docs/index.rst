@@ -11,17 +11,41 @@ VK_Dating_Bot documentation
 
 ::
 
-    VK_Dating_Bot/
-    ├── .env                    # Файл конфигурации
-    ├── bot.py                  # Основной код бота
-    ├── pytest.ini              # Конфигурация тестов
-    ├── requirements.txt        # Зависимости
-    └── tests/                  # Тесты
-        ├── __init__.py
-        ├── conftest.py
-        ├── test_bot.py
-        └── test_db.py
-    └── docs/                   # Документация
+vk_dating_bot/
+├── bot.py
+├── config/
+│   ├── __init__.py
+│   ├── settings.py
+│   └── constants.py
+├── core/
+│   ├── __init__.py
+│   ├── bot_core.py
+│   ├── matching.py
+│   ├── vk_api/
+│   │   ├── __init__.py
+│   │   ├── client.py
+│   │   └── models.py
+│   └── db/
+│       ├── __init__.py
+│       ├── connector.py
+│       ├── repositories.py
+│       └── models.py
+├── handlers/
+│   ├── __init__.py
+│   ├── message.py
+│   └── callback.py
+├── services/
+│   ├── __init__.py
+│   ├── analyzer.py
+│   └── formatter.py
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── unit/
+│   └── integration/
+├── requirements.txt
+└── README.md
+└── docs/                   # Документация
 
 Конфигурация запуска
 --------------------
