@@ -2,7 +2,7 @@ import logging
 from typing import Dict, Any, Optional
 from vk_api.bot_longpoll import VkBotEventType
 from config import constants
-from core.vk_api.client import VKAPIClient
+from core.vk_api.models.client import VKAPIClient
 from core.db.repositories import UserRepository
 from services.formatter import ProfileFormatter
 from services.analyzer import InterestAnalyzer

@@ -6,8 +6,8 @@ from pydantic import BaseModel, validator
 from vk_api.bot_longpoll import VkBotEventType
 from config import constants
 from core import ConfigurationError
-from core.vk_api.client import VKAPIClient
 from core.db.repositories import UserRepository
+from core.vk_api.models.client import VKAPIClient
 from services.formatter import ProfileFormatter
 
 logger = logging.getLogger(__name__)

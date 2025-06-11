@@ -2,9 +2,10 @@ import json
 from typing import Dict, List, Optional, Union
 from datetime import datetime
 from config import constants
+from core.vk_api.models.user import VkUser
 from services.analyzer import InterestAnalyzer
 import logging
-from core.vk_api.models.events import BaseModel, BaseEvent
+
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +21,7 @@ class ProfileFormatter:
 
     def format_profile(
             self,
-            user_data: Union[Dict, BaseEvent],
+            user_data: Union[Dict, VkUser],
             current_user_data: Optional[Dict] = None,
             show_common_interests: bool = True
     ) -> str:
@@ -37,11 +38,11 @@ class ProfileFormatter:
         """
         try:
             # Преобразуем в UserProfile если пришел словарь
-            user = BaseEvent(**user_data) if isinstance(user_data, dict) else user_data
+            user = VkUser(**user_data) if isinstance(user_data, dict) else user_data
             common_interests = ""
 
             if show_common_interests and current_user_data:
-                current_user = BaseEvent(**current_user_data) if isinstance(current_user_data,
+                current_user = VkUser(**current_user_data) if isinstance(current_user_data,
                                                                               dict) else current_user_data
                 common_interests = self._get_common_interests(user, current_user)
                 common_interests = f"\nОбщие интересы: {common_interests}" if common_interests else ""
