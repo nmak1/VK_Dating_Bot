@@ -163,3 +163,63 @@ class CallbackHandler:
         """Обработка подтверждения сервера"""
         # В реальном коде нужно вернуть строку подтверждения из настроек
         return {"response": constants.CONFIRMATION_CODE}
+        """
+        Обработка подтверждения сервера для Callback API VK
+
+        Args:
+            group_id: ID группы/сообщества, для которого требуется подтверждение
+
+        Returns:
+            Словарь с ответом для платформы, содержащий:
+            - confirmation_code: строка подтверждения из настроек
+            - group_id: ID группы (для верификации)
+            - api_version: используемая версия API
+
+        Raises:
+            ConfigurationError: если код подтверждения не найден в настройках
+        """
+        try:
+            # Получаем код подтверждения из настроек группы
+            confirmation_code = self._get_confirmation_code(group_id)
+
+            if not confirmation_code:
+                raise ConfigurationError(
+                    f"Confirmation code not found for group {group_id}. "
+                    "Please check your group settings."
+                )
+
+            return {
+                "response": {
+                    "confirmation_code": confirmation_code,
+                    "group_id": group_id,
+                    "api_version": constants.VK_API_VERSION,
+                    "timestamp": datetime.utcnow().isoformat()
+                },
+                "status": "ok"
+            }
+
+        except Exception as e:
+            logger.error(
+                f"Failed to handle confirmation for group {group_id}: {str(e)}",
+                exc_info=True,
+                extra={"group_id": group_id}
+            )
+            raise
+
+    def _get_confirmation_code(self, group_id: int) -> Optional[str]:
+        """
+        Получает код подтверждения для указанной группы
+
+        Ищет код в следующем порядке:
+        1. Кэш (если настроен)
+        2. Настройки приложения
+        3. Внешнее хранилище (если настроено)
+
+        Returns:
+            Строка с кодом подтверждения или None если не найден
+        """
+        # Реализация может использовать:
+        # - self.settings
+        # - self.cache
+        # - Внешние API
+        return self.settings.get(f"vk_groups.{group_id}.confirmation_code")

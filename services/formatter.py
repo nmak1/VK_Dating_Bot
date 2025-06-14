@@ -2,7 +2,7 @@ import json
 from typing import Dict, List, Optional, Union
 from datetime import datetime
 from config import constants
-from core.vk_api.models import VkUser
+from core.vk_api.models.user import VkUser
 from services.analyzer import InterestAnalyzer
 import logging
 
