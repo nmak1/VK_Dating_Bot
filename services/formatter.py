@@ -6,10 +6,7 @@ from core.vk_api.models.user import VkUser
 from services.analyzer import InterestAnalyzer
 import logging
 
-
 logger = logging.getLogger(__name__)
-
- # Или VkUser, в зависимости от того, как у вас названа модель
 
 
 class ProfileFormatter:
@@ -29,7 +26,7 @@ class ProfileFormatter:
         Форматирует данные профиля в читаемый текст
 
         Args:
-            user_data: Данные профиля (словарь или объект UserProfile)
+            user_data: Данные профиля (словарь или объект VkUser)
             current_user_data: Данные текущего пользователя для сравнения
             show_common_interests: Показывать ли общие интересы
 
@@ -37,14 +34,11 @@ class ProfileFormatter:
             Отформатированная строка с информацией о профиле
         """
         try:
-            # Преобразуем в UserProfile если пришел словарь
-            user = VkUser(**user_data) if isinstance(user_data, dict) else user_data
+            user = VkUser(**user_data) if not isinstance(user_data, VkUser) else user_data
             common_interests = ""
 
             if show_common_interests and current_user_data:
-                current_user = VkUser(**current_user_data) if isinstance(current_user_data,
-                                                                              dict) else current_user_data
-                common_interests = self._get_common_interests(user, current_user)
+                common_interests = self._get_common_interests(user_data, current_user_data)
                 common_interests = f"\nОбщие интересы: {common_interests}" if common_interests else ""
 
             city_name = user.city.get('title') if user.city else "не указан"
@@ -60,6 +54,31 @@ class ProfileFormatter:
         except Exception as e:
             logger.error(f"Error formatting profile: {e}")
             return f"{user_data.get('first_name', 'Пользователь')} {user_data.get('last_name', '')}"
+
+    def _get_common_interests(
+            self,
+            profile1: Union[Dict, VkUser],
+            profile2: Union[Dict, VkUser]
+    ) -> str:
+        """Находит и форматирует общие интересы между двумя профилями"""
+        try:
+            fields_to_compare = ['interests', 'music', 'books', 'groups']
+            common = []
+
+            for field in fields_to_compare:
+                data1 = getattr(profile1, field, None) if isinstance(profile1, VkUser) else profile1.get(field)
+                data2 = getattr(profile2, field, None) if isinstance(profile2, VkUser) else profile2.get(field)
+
+                if data1 and data2:
+                    if field == 'groups':
+                        common.extend(self._compare_groups(data1, data2))
+                    else:
+                        common.extend(self.analyzer.find_common_items(data1, data2))
+
+            return ", ".join(set(filter(None, common))) if common else ""
+        except Exception as e:
+            logger.error(f"Error finding common interests: {e}")
+            return ""
 
     def _compare_groups(self, groups1: List[Dict], groups2: List[Dict]) -> List[str]:
         """Сравнивает группы двух пользователей"""

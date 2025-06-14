@@ -1,13 +1,11 @@
 import json
 import logging
-from datetime import datetime
 from typing import Dict, Any, Optional
 from pydantic import BaseModel, validator
 from vk_api.bot_longpoll import VkBotEventType
 from config import constants
-from core import ConfigurationError
+from core.vk_api.client import VKClient
 from core.db.repositories import UserRepository
-from core.vk_api.models.client import VKAPIClient
 from services.formatter import ProfileFormatter
 
 logger = logging.getLogger(__name__)
@@ -36,7 +34,7 @@ class CallbackPayload(BaseModel):
 
 
 class CallbackHandler:
-    def __init__(self, vk_client: VKAPIClient, user_repo: UserRepository):
+    def __init__(self, vk_client: VKClient, user_repo: UserRepository):
         self.vk = vk_client
         self.user_repo = user_repo
         self.formatter = ProfileFormatter()
@@ -162,6 +160,9 @@ class CallbackHandler:
         return {"result": "rejected"}
 
     def _handle_confirmation(self, group_id: int) -> Dict[str, Any]:
+        """Обработка подтверждения сервера"""
+        # В реальном коде нужно вернуть строку подтверждения из настроек
+        return {"response": constants.CONFIRMATION_CODE}
         """
         Обработка подтверждения сервера для Callback API VK
 
